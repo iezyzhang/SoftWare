@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="ProductManageMapper">  
+  
+    <resultMap type="ProductRecord" id="productResultMap">
+        <id property="productId" column="productId"/>
+        <result property="productName" column="productName"/>
+        <result property="status" column="status"/>
+        <result property="author" column="author"/>
+        <result property="press" column="press"/>
+        <result property="publicationTime" column="publicationTime"/>
+        <result property="categoryId" column="categoryId"/>
+        <result property="description" column="description"/>
+        <result property="stock" column="stock"/>
+        <result property="marketPrice" column="marketPrice"/>
+        <result property="price" column="price"/>
+        <result property="salesvolume" column="salesvolume"/>
+        <result property="iconUrl" column="iconUrl"/>
+        <result property="createTime" column="createTime"/>
+        <result property="detailContent" column="detailContent"/>
+    </resultMap>  
+  	
+    <insert id="insert" parameterType="ProductRecord">
+    	insert into T_PRODUCT (productId,productName,status,author,press,publicationTime,categoryId,description,stock,marketPrice,price,salesvolume,iconUrl,createTime,detailContent)
+    	values (#{productId},#{productName},#{status},#{author},#{press},#{publicationTime},#{categoryId},#{description},#{stock},#{marketPrice},#{price},#{salesvolume},#{iconUrl},#{createTime},#{detailContent})
+    </insert>
+   
+    <update id="update" parameterType="ProductRecord">
+    	update T_PRODUCT set productName=#{productName},status=#{status},author=#{author},press=#{press},publicationTime=#{publicationTime},categoryId=#{categoryId},
+    	description=#{description},stock=#{stock},marketPrice=#{marketPrice},price=#{price},salesvolume=#{salesvolume},iconUrl=#{iconUrl},createTime=#{createTime},detailContent=#{detailContent}
+    	where productId=#{productId}
+    </update> 
+    
+    <update id="updateSalesvolume" parameterType="ProductRecord">
+    	update T_PRODUCT set salesvolume = salesvolume + ${salesvolume},stock = stock - ${salesvolume}
+    	where productId=#{productId}
+    </update>      
+   
+    <select id="queryByCondition" parameterType="ProductFilter" resultType="ProductRecord" resultMap="productResultMap">
+  		select * from T_PRODUCT where 1=1 
+  		
+  		<if test="productName != null and productName != '' ">
+        	and productName like '%${productName}%'
+   	 	</if>
+    	
+  		<if test="categoryId != null and categoryId != '' ">
+        	and categoryId = ${categoryId} 
+    	</if>
+    	
+  		<if test="status != -1">
+        	and status = ${status} 
+    	</if>    		
+  		
+    </select>
+   
+   <select id="queryNewBook" parameterType="ProductFilter" resultType="ProductRecord" resultMap="productResultMap">
+   		select * from T_PRODUCT  order by createTime DESC limit 4;
+   </select>
+    <select id="queryById" parameterType="ProductFilter" resultType="ProductRecord" resultMap="productResultMap">
+  		select * from T_PRODUCT where productId = #{productId}
+    </select>
+    
+    <delete id="delete" parameterType="ProductRecord">
+  		delete from T_PRODUCT where productId = #{productId}
+    </delete>
+   
+    
+      <select id="queryConmmentAndUser" parameterType="CommentResult" resultType="CommentResult">
+    		select c.subscriptionId,
+    		c.comment,
+    		u.userId,
+    		u.userName,
+    		p.productId,
+    		p.productName, 
+		c.commentTime
+    		from 
+    		T_PRODUCT_COMMENT as c JOIN
+    		T_PRODUCT as p ON 
+		c.productId = p.productId JOIN
+		T_USER as u ON c.userId = u.userId
+    		
+    		
+    </select>
+    
+    <select id="queryConmmentByName" parameterType="CommentResult" resultType="CommentResult">
+    		select c.subscriptionId,
+    		c.comment,
+    		u.userId,
+    		u.userName,
+    		p.productId,
+    		p.productName, 
+		c.commentTime
+    		from 
+    		T_PRODUCT_COMMENT as c JOIN
+    		T_PRODUCT as p ON 
+    		c.productId = p.productId JOIN
+		T_USER as u ON u.userId = 
+		c.userId where u.username like '%${userName}%' 
+		
+    </select>
+    
+    <delete id="deleteCommentById" parameterType="CommentRecord">
+    		delete from T_PRODUCT_COMMENT where subscriptionId = #{subscriptionId}
+    </delete>
+</mapper>

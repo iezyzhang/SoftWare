@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="vipManageMapper">  
+  
+    <resultMap type="UserFundRecord" id="userFundResultMap">
+    			<id property="userId" column="userId" />  
+            <result property="consumeMoney" column="consumeMoney" />  
+    </resultMap>  
+ 	
+ 	<select id="queryByCondition" resultMap="userFundResultMap" parameterType="UserFundRecord">
+ 		select * from  T_USER_FUNDS where 1=1
+ 		<if test="userId != '' and userId != null">
+ 			and userId = #{userId}
+ 		</if>  
+ 	</select>
+ 	
+ 	<update id="update" parameterType="UserFundRecord">
+ 		update into T_USER_FUNDS set (userId,consumeMoney) values (#{userId},#{consumeMoney})
+ 	</update>
+	
+</mapper>

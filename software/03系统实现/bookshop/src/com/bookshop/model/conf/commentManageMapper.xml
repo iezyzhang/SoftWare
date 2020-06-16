@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="commentManageMapper">  
+	<resultMap type="CommentRecord" id="CommentManagerResultMap">
+        <id property="userId" column="userId"/>
+        <result property="username" column="userName"/>  
+        <result property="password" column="password"/>
+        <result property="userType" column="userType"/>
+        <result property="email" column="email"/>
+        <result property="userStatus" column="userStatus"/>
+        <result property="isAdmin" column="isAdmin"/>
+        <result property="isVip" column="isVip"/>
+        <result property="sex" column="sex"/>
+        <result property="birthday" column="birthday"/>
+        <result property="phoneNumber" column="phoneNumber"/>
+        <result property="createTime" column="createTime"/>
+        <result property="lastLoginTime" column="lastLoginTime"/>
+    </resultMap>  
+    
+    
+</mapper>

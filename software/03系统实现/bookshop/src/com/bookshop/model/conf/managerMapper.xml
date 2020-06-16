@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="managerMapper">  
+	<resultMap type="ManagerRecord" id="managerResultMap">
+        <id property="managerId" column="managerId"/>
+        <result property="managerName" column="managerName"/>  
+        <result property="password" column="password"/>
+        <result property="lastLoginTime" column="lastLoginTime"/>
+        <result property="createTime" column="createTime"/>
+        <result property="role" column="role"/>
+    </resultMap>  
+    
+     <select id="querySingleByName" parameterType="ManagerRecord" resultType="ManagerRecord" resultMap="managerResultMap">
+  		select * from T_USER_MANAGER where managerName = #{managerName}
+    	
+    </select>    
+    
+     <select id="queryByCondition" parameterType="ManagerRecord" resultType="ManagerRecord" resultMap="managerResultMap">
+  		select * from  T_USER_MANAGER where 1 = 1 
+  		
+  		<if test="managerName != null and managerName != '' ">  
+        	and managerName like '%${managerName}%'
+    		</if>
+  		<if test="role != null and role != '' ">  
+        	and role = #{role}
+    		</if>
+    		<if test="managerId != null and managerId != '' " >
+    		and managerId = #{managerId}
+    		</if>
+  		
+    </select>    
+    
+    <update id="update" parameterType="ManagerRecord">
+    		update T_USER_MANAGER set managerName = #{managerName},password = #{password},lastLoginTime = #{lastLoginTime},
+    		createTime = #{createTime},role=#{role} where managerId=#{managerId}
+    </update>
+    
+    <select id="getManagerRecordByName" parameterType="ManagerRecord" resultMap="managerResultMap">
+    		select * from T_USER_MANAGER where managerName = #{managerName}
+    </select>
+    <delete id="delete" parameterType="ManagerRecord">
+    		delete from T_USER_MANAGER where managerId = #{managerId}
+    </delete>
+    
+    <insert id="insert" parameterType="ManagerRecord">
+    		insert into T_USER_MANAGER (managerId,managerName,password,lastLoginTime,createTime,role) values (#{managerId},#{managerName},
+    		#{password},#{lastLoginTime},#{createTime},#{role})
+    </insert>
+</mapper>

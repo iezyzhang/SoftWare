@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="AddressManageMapper">  
+  
+    <resultMap type="AddressRecord" id="addressResultMap">
+        <id property="userId" column="userId"/>
+        <id property="addressId" column="addressId"/>
+        <id property="address" column="address"/>
+        <id property="defaultAddress" column="defaultAddress"/>
+    </resultMap>  
+      
+    <insert id="insert" parameterType="AddressRecord">
+		insert t_user_delivery_address (userId,addressId,address,defaultAddress) VALUES (#{userId},#{addressId},#{address},#{defaultAddress})
+    </insert>
+    
+    <update id="update" parameterType="AddressRecord">
+		update t_user_delivery_address 
+		set address = #{address},defaultAddress=#{defaultAddress} where userId = #{userId} and addressId = #{addressId}
+    </update>    
+
+    <update id="updateAllDefaultAddress" parameterType="AddressRecord">
+		update t_user_delivery_address 
+		set defaultAddress=0 where userId = #{userId}
+    </update>
+      
+      
+    <insert id="delete" parameterType="AddressRecord">
+		delete from t_user_delivery_address where addressId = #{addressId}
+    </insert>      
+      
+    <select id="queryByAddressId" parameterType="AddressRecord" resultType="AddressRecord" resultMap="addressResultMap">
+  		select * from T_USER_DELIVERY_ADDRESS where addressId = #{addressId}
+    </select>      
+      
+    <select id="queryAddressByCondition" parameterType="AddressFilter" resultType="AddressRecord" resultMap="addressResultMap">
+  		select * from T_USER_DELIVERY_ADDRESS TUDA where 1=1 
+  		<if test="userId != null and userId != '' ">  
+        	and userId = #{userId} 
+    	</if>
+
+  		<if test="addressId != null and addressId != '' ">  
+        	and addressId = #{addressId} 
+    	</if>
+    	
+  		<if test="username != null and username != '' ">  
+        	and EXISTS(select 1 from T_USER TU where TU.username = #{username} AND TUDA.userId=TU.userId)
+    	</if>    	  	
+    </select>
+           
+</mapper>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="categroyMapper">  
+  
+    <resultMap type="CategroyRecord" id="categroyResultMap">
+        <id property="categroyId" column="categroyId"/>
+        <result property="categroyItem" column="categroyItem"/>  
+    </resultMap>
+    
+    <select id="queryByCondition" parameterType="CategroyRecord"  resultMap="categroyResultMap">
+  		select * from T_PRODUCT_CATEGROY where 1=1
+  		 			
+	  		<if test="categroyId != '' and categroyId != null">
+	  			 and categroyId = #{categroyId } 
+	  		</if>
+	  		<if test="categroyItem != '' and categroyId != null">
+	  			and categroyItem like '%${categroyItem}%'
+	  		</if>
+  		
+    </select>
+    <select id="queryAll"   resultMap="categroyResultMap">
+    		select * from T_PRODUCT_CATEGROY 
+    </select>
+    <insert id="insert" parameterType="CategroyRecord">
+    	insert into T_PRODUCT_CATEGROY (categroyId,categroyItem)
+    	values (#{categroyId},#{categroyItem})
+    </insert>
+    
+    <delete id="delete" parameterType="CategroyRecord">
+    	delete from T_PRODUCT_CATEGROY where categroyId = #{categroyId}
+    </delete>    
+     
+</mapper>

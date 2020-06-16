@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">  
+<configuration>  
+    <typeAliases>  
+        <typeAlias alias="UserRecord" type="com.bookshop.model.user.UserRecord"/>  
+        <typeAlias alias="UserFunds" type="com.bookshop.model.user.UserFunds"/>  
+        <typeAlias alias="UserFilter" type="com.bookshop.model.user.UserFilter"/>
+        <typeAlias alias="AddressFilter" type="com.bookshop.model.address.AddressFilter"/>
+        <typeAlias alias="AddressRecord" type="com.bookshop.model.address.AddressRecord"/>
+        <typeAlias alias="ProductRecord" type="com.bookshop.model.product.ProductRecord"/>
+        <typeAlias alias="ProductFilter" type="com.bookshop.model.product.ProductFilter"/>
+        <typeAlias alias="FileInfoRecord" type="com.bookshop.model.user.FileInfoRecord"/>
+        <typeAlias alias="SubscriptionRecord" type="com.bookshop.model.product.SubscriptionRecord"/>
+        <typeAlias alias="SubscriptionFilter" type="com.bookshop.model.product.SubscriptionFilter"/>
+        <typeAlias alias="ProductCommentRecord" type="com.bookshop.model.product.ProductCommentRecord"/>
+        <typeAlias alias="ManagerRecord" type="com.bookshop.model.manager.ManagerRecord"/>
+        <typeAlias alias="NoticeRecord" type="com.bookshop.model.notice.NoticeRecord"/>
+        <typeAlias alias="NoticeFilter" type="com.bookshop.model.notice.NoticeFilter"/>
+        <typeAlias alias="CategroyRecord" type="com.bookshop.model.product.CategroyRecord"/>
+        <typeAlias alias="UserFundRecord" type="com.bookshop.model.vip.UserFundRecord"/>
+        <typeAlias alias="UserAndFundsRecord" type="com.bookshop.model.vip.UserAndFundsDetail"/>
+        <typeAlias alias="CommentRecord" type="com.bookshop.model.comment.CommentRecord"/>
+        <typeAlias alias="CommentResult" type="com.bookshop.model.comment.CommentResult"/>
+        <typeAlias alias="SubscriptionResult" type="com.bookshop.model.subscription.SubscriptionResult"/>
+        
+    </typeAliases>
+    <mappers>  
+        <mapper resource="com/bookshop/model/conf/userManageMapper.xml" />
+        <mapper resource="com/bookshop/model/conf/userFundsMapper.xml" />
+        <mapper resource="com/bookshop/model/conf/AddressManageMapper.xml" />
+        <mapper resource="com/bookshop/model/conf/productManageMapper.xml" />
+        <mapper resource="com/bookshop/model/conf/fileInfoManageMapper.xml" />
+        <mapper resource="com/bookshop/model/conf/subscriptionManageMapper.xml" />
+        <mapper resource="com/bookshop/model/conf/productCommentManageMapper.xml" />
+        <mapper resource="com/bookshop/model/conf/managerMapper.xml" />
+        <mapper resource="com/bookshop/model/conf/noticeManageMapper.xml"/>
+        <mapper resource="com/bookshop/model/conf/categroyMapper.xml"/>
+        <mapper resource="com/bookshop/model/conf/vipManageMapper.xml"/>
+    </mappers>  
+</configuration>

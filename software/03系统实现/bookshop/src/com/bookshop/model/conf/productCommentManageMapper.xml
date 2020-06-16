@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="productCommentManageMapper">  
+  
+    <resultMap type="ProductCommentRecord" id="ProductCommentResultMap">
+        <id property="subscriptionId" column="subscriptionId"/>
+        <result property="productId" column="productId"/>  
+        <result property="userId" column="userId"/>
+        <result property="comment" column="comment"/>
+        <result property="commentTime" column="commentTime"/>
+    </resultMap>  
+    
+    <select id="queryByProductId" parameterType="ProductCommentRecord" resultType="ProductCommentRecord" resultMap="ProductCommentResultMap">
+  		select * from T_PRODUCT_COMMENT where productId = #{productId}
+    </select>
+    
+    <insert id="insert" parameterType="ProductCommentRecord">
+    	insert into T_PRODUCT_COMMENT (subscriptionId,productId,userId,comment,commentTime)
+    	values (#{subscriptionId},#{productId},#{userId},#{comment},#{commentTime})
+    </insert>
+    
+    <delete id="" parameterType="ProductCommentRecord">
+    	insert into T_PRODUCT_COMMENT (subscriptionId,productId,userId,comment,commentTime)
+    	values (#{subscriptionId},#{productId},#{userId},#{comment},#{commentTime})
+    </delete>
+</mapper>

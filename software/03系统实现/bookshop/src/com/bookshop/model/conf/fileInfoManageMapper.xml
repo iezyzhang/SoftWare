@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="fileInfoManageMapper">  
+  
+    <resultMap type="FileInfoRecord" id="fileInfoResultMap">
+        <id property="objectId" column="objectId"/>
+        <result property="fileType" column="fileType"/>  
+        <result property="fileUrl" column="fileUrl"/>
+    </resultMap>
+    
+    <select id="queryByObjectId" parameterType="FileInfoRecord" resultType="FileInfoRecord" resultMap="fileInfoResultMap">
+  		select * from T_FILE_INFO where objectId = #{objectId}
+    </select>
+    
+    <insert id="insert" parameterType="FileInfoRecord">
+    	insert into T_FILE_INFO (objectId,fileType,fileUrl)
+    	values (#{objectId},#{fileType},#{fileUrl})
+    </insert>
+    
+    <delete id="delete" parameterType="FileInfoRecord">
+    	delete from T_FILE_INFO where objectId = #{objectId}
+    </delete>    
+         
+</mapper>

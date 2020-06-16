@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="userManageMapper">  
+  
+    <resultMap type="UserRecord" id="userResultMap">
+        <id property="userId" column="userId"/>
+        <result property="username" column="userName"/>  
+        <result property="password" column="password"/>
+        <result property="userType" column="userType"/>
+        <result property="email" column="email"/>
+        <result property="userStatus" column="userStatus"/>
+        <result property="isAdmin" column="isAdmin"/>
+        <result property="isVip" column="isVip"/>
+        <result property="sex" column="sex"/>
+        <result property="birthday" column="birthday"/>
+        <result property="phoneNumber" column="phoneNumber"/>
+        <result property="createTime" column="createTime"/>
+        <result property="lastLoginTime" column="lastLoginTime"/>
+    </resultMap>  
+      
+    <select id="querySingleByName" parameterType="UserRecord" resultType="UserRecord" resultMap="userResultMap">
+  		select * from T_USER where username = #{username}
+    </select>
+    
+    <select id="queryByCondition" parameterType="UserFilter" resultType="UserRecord" resultMap="userResultMap">
+  		select * from T_USER where 1=1 
+  		
+  		<if test="username != null and username != '' ">  
+        	and username like '%${username}%'
+    	</if>
+  		
+    </select>    
+    
+    <select id="querySingleById" parameterType="UserRecord" resultType="UserRecord" resultMap="userResultMap">
+  		select * from T_USER where userId = #{userId}
+    </select>
+    
+    <select id="querySingleByNameAndPassword" parameterType="UserRecord" resultType="UserRecord" resultMap="userResultMap">
+  		select * from T_USER where username = #{username} and password = #{password}
+    </select>        
+    
+    <insert id="insert" parameterType="UserRecord">
+    	insert into T_USER (userId,userName,password,userType,email,userStatus,isAdmin,isVip,sex,birthday,phoneNumber,createTime,lastLoginTime)
+    	values (#{userId},#{username},#{password},#{userType},#{email},#{userStatus},#{isAdmin},#{isVip},#{sex},#{birthday},#{phoneNumber},#{createTime},#{lastLoginTime})
+    </insert>
+           
+    <update id="update" parameterType="UserRecord">
+    	update T_USER set username=#{username},password=#{password},userType=#{userType},email=#{email},
+    	userStatus=#{userStatus},isAdmin=#{isAdmin},isVip=#{isVip},sex=#{sex},birthday=#{birthday},phoneNumber=#{phoneNumber},createTime=#{createTime},lastLoginTime=#{lastLoginTime}
+    	where userId=#{userId}
+    </update>           
+    
+    <update id="updateStatus" parameterType="UserRecord">
+    	update T_USER set userStatus=#{userStatus} where userId=#{userId}
+    </update>
+
+    <update id="updateIsVip" parameterType="UserRecord">
+    	update T_USER set isVip=#{isVip} where userId=#{userId}
+    </update>
+    
+    
+    <delete id="delete" parameterType="UserRecord">
+    	delete from T_USER where userId = #{userId}
+    </delete>
+</mapper>
